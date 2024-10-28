@@ -288,7 +288,6 @@ def main(args):
     print(f"Start training for {args.epochs} epochs")
     start_time = time.time()
 
-    best_epoch, best_loss = 0, np.inf
     for epoch in range(args.start_epoch, args.epochs):
         if args.distributed:
             data_loader_train.sampler.set_epoch(epoch)
@@ -325,6 +324,8 @@ def main(args):
             utils.save_model(
                 args=args, model=model, model_without_ddp=model_without_ddp, optimizer=optimizer,
                 loss_scaler=loss_scaler, epoch=epoch)
+
+        print(f'Epoch {epoch} training time {time.time()-start_time}')
 
         # val_loss, val_loss_mae, val_loss_mae_a, val_loss_mae_v, val_loss_contrastive, val_loss_contrastive_a, val_loss_contrastive_v = val_one_epoch(
         #     model, data_loader_val,

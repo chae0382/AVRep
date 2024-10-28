@@ -1,14 +1,14 @@
 #!/bin/zsh
 
-dataset="voxceleb2"
-OUTPUT_DIR="./results/${dataset}"
+dataset="lrs3"
+OUTPUT_DIR="./results/${dataset}_1024"
 
 if [ ! -d "$OUTPUT_DIR" ]; then
   mkdir -p $OUTPUT_DIR
 fi
 
 # Set the path to pre-training dataset.
-DATA_PATH='/home/chaeyeon/krafton/HiCMAE/preprocess/voxceleb2_2d_pretrain_b_128.csv'
+DATA_PATH="./preprocess/lrs3_2d_pretrain_b_1024.csv"
 DATA_ROOT=$1
 
 # batch_size can be adjusted according to number of GPUs
@@ -30,7 +30,7 @@ OMP_NUM_THREADS=1 CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 torchrun --nproc_per_node
         --encoder_depth_audio 10 \
         --decoder_depth_audio 4 \
         --encoder_fusion_depth 2 \
-        --batch_size 16 \
+        --batch_size 128 \
         --num_frames 5 \
         --sampling_rate 1 \
         --opt adamw \

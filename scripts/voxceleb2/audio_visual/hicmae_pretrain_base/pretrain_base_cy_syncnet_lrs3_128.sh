@@ -1,21 +1,21 @@
 #!/bin/zsh
 
 dataset="lrs3"
-OUTPUT_DIR="./results/${dataset}"
+OUTPUT_DIR="./results/${dataset}_128"
 
 if [ ! -d "$OUTPUT_DIR" ]; then
   mkdir -p $OUTPUT_DIR
 fi
 
 # Set the path to pre-training dataset.
-DATA_PATH='/home/chaeyeon/krafton/HiCMAE/preprocess/lrs3_2d_pretrain_b_128.csv'
+DATA_PATH="./preprocess/lrs3_2d_pretrain_b_128.csv"
 DATA_ROOT=$1
 
 # batch_size can be adjusted according to number of GPUs
 # this script is for 4 GPUs (1 nodes x 4 GPUs)
 
 OMP_NUM_THREADS=1 CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 torchrun --nproc_per_node=8 \
-        --master_port 11144 \
+        --master_port 11146 \
         run_mae_pretraining_av_cy_syncnet.py \
         --data_path ${DATA_PATH} \
         --data_root ${DATA_ROOT} \
