@@ -12,7 +12,7 @@ from pathlib import Path
 import subprocess
 import torch
 import torch.distributed as dist
-from torch._six import inf
+from torch import inf
 import random
 
 from tensorboardX import SummaryWriter
@@ -72,6 +72,9 @@ class SmoothedValue(object):
         return self.deque[-1]
 
     def __str__(self):
+        # print(f"self.deque:{self.deque}, self.total:{self.total}, self.count:{self.count}")
+        # if torch.isinf(torch.tensor(list(self.deque))).sum()>0 :
+        #     import pdb; pdb.set_trace();
         return self.fmt.format(
             median=self.median,
             avg=self.avg,
@@ -187,11 +190,13 @@ class TensorboardLogger(object):
     def flush(self):
         self.writer.flush()
 
+
 def seed_worker(worker_id):
-    worker_seed = torch.initial_seed() % 2**32
+    worker_seed = torch.initial_seed() % 2 ** 32
     np.random.seed(worker_seed)
     random.seed(worker_seed)
-    
+
+
 def _load_checkpoint_for_ema(model_ema, checkpoint):
     """
     Workaround for ModelEma._load_checkpoint to accept an already-loaded object
@@ -324,7 +329,6 @@ def load_state_dict(model, state_dict, prefix='', ignore_missing="relative_posit
             ignore_missing_keys.append(key)
 
     missing_keys = warn_missing_keys
-
     if len(missing_keys) > 0:
         print("Weights of {} not initialized from pretrained model: {}".format(
             model.__class__.__name__, missing_keys))
@@ -378,7 +382,8 @@ def get_grad_norm_(parameters, norm_type: float = 2.0) -> torch.Tensor:
     if norm_type == inf:
         total_norm = max(p.grad.detach().abs().max().to(device) for p in parameters)
     else:
-        total_norm = torch.norm(torch.stack([torch.norm(p.grad.detach(), norm_type).to(device) for p in parameters]), norm_type)
+        total_norm = torch.norm(torch.stack([torch.norm(p.grad.detach(), norm_type).to(device) for p in parameters]),
+                                norm_type)
     return total_norm
 
 
@@ -421,10 +426,23 @@ def save_model(args, epoch, model, model_without_ddp, optimizer, loss_scaler, mo
 
             save_on_master(to_save, checkpoint_path)
     else:
-        client_state = {'epoch': epoch}
-        if model_ema is not None:
-            client_state['model_ema'] = get_state_dict(model_ema)
-        model.save_checkpoint(save_dir=args.output_dir, tag="checkpoint-%s" % epoch_name, client_state=client_state)
+        checkpoint_paths = [output_dir / ('checkpoint-%s.pth' % epoch_name)]
+        for checkpoint_path in checkpoint_paths:
+            to_save = {
+                'model': model_without_ddp.state_dict(),
+                'optimizer': optimizer.state_dict(),
+                'epoch': epoch,
+                'args': args,
+            }
+
+            if model_ema is not None:
+                to_save['model_ema'] = get_state_dict(model_ema)
+
+            save_on_master(to_save, checkpoint_path)
+        # client_state = {'epoch': epoch}
+        # if model_ema is not None:
+        #     client_state['model_ema'] = get_state_dict(model_ema)
+        # model.save_checkpoint(save_dir=args.output_dir, tag="checkpoint-%s" % epoch_name, client_state=client_state)
 
 
 def auto_load_model(args, model, model_without_ddp, optimizer, loss_scaler, model_ema=None):
@@ -440,6 +458,7 @@ def auto_load_model(args, model, model_without_ddp, optimizer, loss_scaler, mode
                 if t.isdigit():
                     latest_ckpt = max(int(t), latest_ckpt)
             if latest_ckpt >= 0:
+                # latest_ckpt=0
                 args.resume = os.path.join(output_dir, 'checkpoint-%d.pth' % latest_ckpt)
             print("Auto resume checkpoint: %s" % args.resume)
 
@@ -513,6 +532,7 @@ def create_ds_config(args):
         }
 
         writer.write(json.dumps(ds_config, indent=2))
+
 
 def multiple_samples_collate(batch, fold=False):
     """
