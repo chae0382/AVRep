@@ -4,7 +4,7 @@ Download the following folder and files.
 - /volume1/guestusers/KRAFTON/lrs3/
 - /volume1/guestusers/KRAFTON/lrs3_2d_pretrain_b_1024.csv
 - /volume1/guestusers/KRAFTON/lrs3_2d_pretrain_b_128.csv
-- /volume1/guestusers/KRAFTON/hic-mae7
+- /volume1/guestusers/KRAFTON/hic-mae7/
 
 Put /volume1/guestusers/KRAFTON/lrs3/ folder in your local ${DATA_ROOT} directory.  
 
