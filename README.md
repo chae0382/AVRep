@@ -40,7 +40,7 @@ pip uninstall torch torchvision torchaudio
 pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu117
 ```
 만약, 다음 환경으로 에러가 계속 발생하면  
-- /volume1/guestusers/KRAFTON/hic-mae7  
+- /volume1/guestusers/KRAFTON/hic-mae7    
 환경을 복사해서 사용해주세요!
 
 ```bash
