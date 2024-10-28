@@ -14,9 +14,9 @@ Download the following folders and files.
 - /volume1/guestusers/KRAFTON/lrs3_2d_pretrain_b_128.csv
 - /volume1/guestusers/KRAFTON/voxceleb2_2d_pretrain_b_128.csv
 
-Put /volume1/guestusers/KRAFTON/lrs3/, /volume1/guestusers/KRAFTON/voxceleb2/ folders in your local ${DATA_ROOT} directory.
-Put /volume1/guestusers/KRAFTON/lrs3_2d_pretrain_b_128.csv, /volume1/guestusers/KRAFTON/voxceleb2_2d_pretrain_b_128.csv files in ./preprocess directory.
-After downloading, the folder structures will be as below. 
+Put /volume1/guestusers/KRAFTON/lrs3/, /volume1/guestusers/KRAFTON/voxceleb2/ folders in your local ${DATA_ROOT} directory.  
+Put /volume1/guestusers/KRAFTON/lrs3_2d_pretrain_b_128.csv, /volume1/guestusers/KRAFTON/voxceleb2_2d_pretrain_b_128.csv files in ./preprocess directory.  
+After downloading, the folder structures will be as below.  
 ```
     ${DATA_ROOT}
     ├── lrs3        # LRS3 Dataset
