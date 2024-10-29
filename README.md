@@ -1,5 +1,4 @@
 **Data Download:** 
-Please follow the instructions [here](https://www.notion.so/aminas-sftp-24179379a0224abcaf572e275c275aea?pvs=4). 
 Download the following folder and files.
 - /volume1/guestusers/KRAFTON/lrs3/
 - /volume1/guestusers/KRAFTON/lrs3_2d_pretrain_b_1024.csv
