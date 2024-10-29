@@ -5,9 +5,9 @@ Download the following folder and files.
 - lrs3_2d_pretrain_b_128.csv
 - hic-mae7/
 
-Put /volume1/guestusers/KRAFTON/lrs3/ folder in your local ${DATA_ROOT} directory.  
+Put lrs3/ folder in your local ${DATA_ROOT} directory.  
 
-Put /volume1/guestusers/KRAFTON/lrs3_2d_pretrain_b_1024.csv, /volume1/guestusers/KRAFTON/lrs3_2d_pretrain_b_128.csv files in ./preprocess directory.  
+Put lrs3_2d_pretrain_b_1024.csv, lrs3_2d_pretrain_b_128.csv files in ./preprocess directory.  
 
 After downloading, the folder structures will be as below.  
 ```
