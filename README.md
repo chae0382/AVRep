@@ -49,12 +49,12 @@ conda create -n hicmae --clone hic-mae7
 
 **Run script:** 
 
-1. Configuration 1
+1. lrs3_1024
 ```bash
 sh ./scripts/voxceleb2/audio_visual/hicmae_pretrain_base/pretrain_base_cy_syncnet_lrs3_1024.sh ${DATA_ROOT}
 ```
 
-2. Configuration 2
+2. lrs3_128
 ```bash
 sh ./scripts/voxceleb2/audio_visual/hicmae_pretrain_base/pretrain_base_cy_syncnet_lrs3_128.sh ${DATA_ROOT}
 ```
