@@ -1,4 +1,4 @@
-**Data Download:** 
+**Data Download:**  
 Download the following folder and files.
 - lrs3/
 - lrs3_2d_pretrain_b_1024.csv
